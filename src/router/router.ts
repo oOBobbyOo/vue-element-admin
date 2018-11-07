@@ -29,6 +29,18 @@ export const constantRouterMap = [
 
 export const asyncRouterMap = [
   {
+    path: '/icon',
+    component: Layout,
+    children: [
+      {
+        path: 'index',
+        component: () => import('@/views/svg-icons/index.vue'),
+        name: 'Icons',
+        meta: { title: 'icons', icon: 'icon', noCache: true }
+      }
+    ]
+  },
+  {
     path: '/charts',
     component: Layout,
     redirect: 'noredirect',

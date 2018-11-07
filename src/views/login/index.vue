@@ -81,8 +81,8 @@ export default class Login extends Vue {
   LoginByUsername: any
 
   private loginForm: Validate = {
-    username: '',
-    password: ''
+    username: 'admin',
+    password: '123456'
   }
 
   private loading: boolean = false
@@ -130,7 +130,6 @@ export default class Login extends Vue {
         this.loading = true
         this.LoginByUsername(this.loginForm)
           .then((res: any) => {
-            console.log(res)
             this.loading = false
             this.$router.push({ path: '/' })
           })
