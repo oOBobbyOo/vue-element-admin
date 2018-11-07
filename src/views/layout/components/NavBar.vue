@@ -20,13 +20,14 @@
           <router-link to="/">
             <el-dropdown-item>dashboard</el-dropdown-item>
           </router-link>
-          <el-dropdown-item divided>logout</el-dropdown-item>
+          <el-dropdown-item divided>
+            <span @click="logout">logout</span>
+          </el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
     </div>
   </div>
 </template>
-
 
 <script lang="ts">
 import Hamburger from '@/components/Hamburger/index.vue'
@@ -34,9 +35,11 @@ import Breadcrumb from '@/components/Breadcrumb/index.vue'
 import Screenfull from '@/components/Screenfull/index.vue'
 
 import { Component, Vue, Provide } from 'vue-property-decorator'
-import { State, Getter, Action, Mutation } from 'vuex-class'
+import { State, Getter, Action, Mutation, namespace } from 'vuex-class'
 import { SidebarState } from '@/store/modules/app/types'
-const namespace: string = 'app'
+
+const appModule = namespace('app')
+const userModule = namespace('user')
 
 @Component({
   name: 'NavBar',
@@ -47,31 +50,32 @@ const namespace: string = 'app'
   }
 })
 export default class NavBar extends Vue {
-  @Provide()
-  avatar: string = ''
-
-  @State(state => state.user)
-  user: any
-
-  @Getter('sidebar', { namespace })
+  @appModule.Getter('sidebar')
   sidebar!: SidebarState
 
-  @Getter('device', { namespace })
+  @appModule.Getter('device')
   device!: string
 
-  @Action('toggleSideBar', { namespace })
+  @appModule.Action('toggleSideBar')
   toggleSideBar!: any
 
-  created(): void {
-    this.avatar = this.user.avatar
-  }
+  @userModule.Getter('avatar')
+  avatar!: string
+
+  @userModule.Action('LogOut')
+  LogOut!: any
 
   private sideBar() {
     this.toggleSideBar()
   }
+
+  private logout() {
+    this.LogOut().then(() => {
+      location.reload()
+    })
+  }
 }
 </script>
-
 
 <style lang="scss" scoped>
 .navbar {
