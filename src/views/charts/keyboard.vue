@@ -1,14 +1,19 @@
 <template>
   <div class="chart-container">
-    KeyBoard
+    <keyboard-chart width="100%" height="100%" />
   </div>
 </template>
 
 <script lang="ts">
-import { Component, Vue, Provide } from 'vue-property-decorator'
+import KeyboardChart from '@/components/Charts/KeyboardChart.vue'
+
+import { Component, Vue } from 'vue-property-decorator'
 
 @Component({
-  name: 'KeyboardChart'
+  name: 'Keyboard',
+  components: {
+    KeyboardChart
+  }
 })
 export default class KeyBoard extends Vue {}
 </script>
