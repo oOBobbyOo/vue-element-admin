@@ -20,6 +20,7 @@ export const constantRouterMap = [
     ]
   },
   { path: '/login', component: () => import('@/views/login/index.vue') },
+  { path: '/register', component: () => import('@/views/register/index.vue') },
   {
     path: '/401',
     component: () => import('@/views/errorPage/401.vue'),

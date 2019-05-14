@@ -147,6 +147,12 @@ export default class Login extends Vue {
     }
   }
 
+  // 路由跳转
+  private gotoRegister() {
+    this.$router.push({ path: '/register' })
+  }
+
+  // 登录
   private handleLogin() {
     this.$refs.loginForm.validate((valid: any) => {
       if (valid) {

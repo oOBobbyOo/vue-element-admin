@@ -2,8 +2,8 @@ import { ActionTree } from 'vuex'
 import { UserState } from './types'
 import { RootState } from '../types'
 
-import { loginByUsername, logout, getUserInfo } from '@/api/login'
-import { getToken, setToken, removeToken } from '@/utils/auth'
+import { loginByUsername, logout, getUserInfo, register } from '@/api/user'
+import { setToken, removeToken } from '@/utils/auth'
 
 export const actions: ActionTree<UserState, RootState> = {
   // 用户名登录
@@ -77,5 +77,15 @@ export const actions: ActionTree<UserState, RootState> = {
       removeToken()
       resolve()
     })
+  },
+
+  // 用户注册
+  async register({ commit }, user) {
+    try {
+      const { data } = await register(user)
+      commit('SET_TOKEN', data.token)
+    } catch (error) {
+      return error
+    }
   }
 }
