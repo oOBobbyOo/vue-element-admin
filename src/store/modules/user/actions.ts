@@ -2,7 +2,7 @@ import { ActionTree } from 'vuex'
 import { UserState } from './types'
 import { RootState } from '../types'
 
-import { login, logout, getUserInfo, register } from '@/api/user'
+import { login, register, getUserInfo, logOut } from '@/api/user'
 import { setToken, removeToken } from '@/utils/auth'
 
 export const actions: ActionTree<UserState, RootState> = {
@@ -50,19 +50,15 @@ export const actions: ActionTree<UserState, RootState> = {
   },
 
   // 登出
-  LogOut({ commit }) {
-    return new Promise((resolve, reject) => {
-      logout()
-        .then(() => {
-          commit('SET_TOKEN', '')
-          commit('SET_ROLES', [])
-          removeToken()
-          resolve()
-        })
-        .catch(error => {
-          reject(error)
-        })
-    })
+  async logOut({ commit }) {
+    try {
+      const { data } = await logOut()
+      commit('SET_TOKEN', '')
+      commit('SET_ROLES', [])
+      removeToken()
+    } catch (error) {
+      return error
+    }
   },
 
   // 前端 登出

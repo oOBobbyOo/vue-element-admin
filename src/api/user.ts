@@ -10,7 +10,7 @@ export function login(user: any) {
 }
 
 // 登出
-export function logout() {
+export function logOut() {
   return request({
     url: '/user/logout',
     method: 'post'
@@ -31,6 +31,6 @@ export function register(user: any) {
   return request({
     url: '/user/register',
     method: 'post',
-    params: { user }
+    data: { user }
   })
 }

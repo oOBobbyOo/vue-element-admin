@@ -5,7 +5,7 @@
     <breadcrumb class="breadcrumb-container" />
 
     <div class="right-menu">
-      <template v-if="device!=='mobile'">
+      <template v-if="device !== 'mobile'">
         <el-tooltip content="Screenfull" effect="dark" placement="bottom">
           <screenfull class="screenfull right-menu-item" />
         </el-tooltip>
@@ -13,7 +13,7 @@
 
       <el-dropdown class="avatar-container right-menu-item" trigger="click">
         <div class="avatar-wrapper">
-          <img :src="avatar+'?imageView2/1/w/80/h/80'" class="user-avatar">
+          <img :src="avatar + '?imageView2/1/w/80/h/80'" class="user-avatar" />
           <i class="el-icon-caret-bottom" />
         </div>
         <el-dropdown-menu slot="dropdown">
@@ -62,15 +62,15 @@ export default class NavBar extends Vue {
   @userModule.Getter('avatar')
   avatar!: string
 
-  @userModule.Action('LogOut')
-  LogOut!: any
+  @userModule.Action('logOut')
+  logOut!: any
 
   private sideBar() {
     this.toggleSideBar()
   }
 
   private logout() {
-    this.LogOut().then(() => {
+    this.logOut().then(() => {
       location.reload()
     })
   }
