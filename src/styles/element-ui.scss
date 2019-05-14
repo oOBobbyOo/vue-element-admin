@@ -80,3 +80,65 @@
     display: block
   }
 }
+
+
+//login && register
+$dark_gray: #889aa4;
+$light_gray: #eee;
+.form-container {
+  position: relative;
+  min-height: 100%;
+  width: 100%;
+  background: linear-gradient(0deg, #0f3238 0%, #1b8dd4 50%, #30afc0 100%);
+  overflow: hidden;
+  .form-group {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 400px;
+    max-width: 100%;
+    padding: 20px;
+    color: #111123;
+    border-radius: 5px;
+    box-shadow: 0 0 15px #002661;
+    border: 1px solid #74b5c9;
+    background: rgba(0, 0, 0, 0.6);
+    overflow: hidden;
+    .title-container {
+      position: relative;
+      .title {
+        font-size: 26px;
+        color: $light_gray;
+        margin: 10px auto 30px;
+        text-align: center;
+        font-weight: bold;
+      }
+    }
+    .show-pwd {
+      position: absolute;
+      right: 10px;
+      top: 2px;
+      z-index: 9;
+      display: block;
+      font-size: 16px;
+      color: $dark_gray;
+      user-select: none;
+      cursor: pointer;
+    }
+    .links {
+      font-size: 12px;
+      text-align: right;
+      color: #fff;
+    }
+  }
+  input {
+    &:-webkit-autofill {
+      -webkit-box-shadow: 0 0 0px 1000px #f5f7fa inset !important;
+      -webkit-text-fill-color: #333 !important;
+    }
+  }
+  .el-input-group__prepend {
+    padding: 0 15px;
+  }
+}
