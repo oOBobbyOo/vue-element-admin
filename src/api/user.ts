@@ -1,17 +1,23 @@
 import request from '@/utils/request'
 
-export function loginByUsername(username: string, password: string) {
-  const data = {
-    username,
-    password
-  }
-  return request({ url: '/user/login', method: 'post', data })
+// 登录
+export function login(user: any) {
+  return request({
+    url: '/user/login',
+    method: 'post',
+    data: { user }
+  })
 }
 
+// 登出
 export function logout() {
-  return request({ url: '/user/logout', method: 'post' })
+  return request({
+    url: '/user/logout',
+    method: 'post'
+  })
 }
 
+// 获取用户信息
 export function getUserInfo(token: string) {
   return request({
     url: '/user/info',

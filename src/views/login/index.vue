@@ -53,33 +53,22 @@
 </template>
 
 <script lang="ts">
-import { isvalidUsername } from '@/utils/validate'
+import { validStr } from '@/utils/validate'
 
-import { Component, Vue, Provide } from 'vue-property-decorator'
+import { Component, Vue } from 'vue-property-decorator'
 import { State, Action, Getter } from 'vuex-class'
 
 const namespace: string = 'user'
 
-/**
- * 定义当前数据
- */
-interface Validate {
+// 定义登录接口类型
+interface LoginForm {
   username: string
   password: string
 }
 
-/**
- * 定义当前表单验证
- */
-interface LoginRulesFun {
-  username: [
-    {
-      required: boolean
-      trigger: string
-      validator: (rule: any, value: string, callback: () => {}) => void
-    }
-  ]
-  password: [
+// 定义当前表单验证
+interface LoginRules {
+  [propName: string]: [
     {
       required: boolean
       trigger: string
@@ -89,34 +78,33 @@ interface LoginRulesFun {
 }
 
 @Component({
-  name: 'login'
+  name: 'Login'
 })
 export default class Login extends Vue {
   $refs!: {
     loginForm: HTMLFormElement
   }
 
-  @Provide()
-  passwordType: string = 'password'
+  @Action('login', { namespace }) login: any
 
-  @Action('LoginByUsername', { namespace })
-  LoginByUsername: any
-
-  private loginForm: Validate = {
+  private loginForm: LoginForm = {
     username: 'admin',
     password: '123456'
   }
 
+  private passwordType: string = 'password'
   private loading: boolean = false
 
-  private loginRules: LoginRulesFun = {
+  private loginRules: LoginRules = {
     username: [
       {
         required: true,
         trigger: 'blur',
         validator: (rule: any, value: string, callback: (res?: any) => {}) => {
-          if (!isvalidUsername(value)) {
-            callback(new Error('请输入正确的用户名'))
+          if (value === '') {
+            callback(new Error('请输入用户名！'))
+          } else if (validStr(value)) {
+            callback(new Error('只允许字母、数字和下划线！'))
           } else {
             callback()
           }
@@ -128,8 +116,12 @@ export default class Login extends Vue {
         required: true,
         trigger: 'blur',
         validator: (rule: any, value: string, callback: (res?: any) => {}) => {
-          if (value.length < 6) {
-            callback(new Error('密码不能小于6位'))
+          if (value === '') {
+            callback(new Error('请输入密码！'))
+          } else if (validStr(value)) {
+            callback(new Error('只允许字母数字和下划线！'))
+          } else if (value.length < 6) {
+            callback(new Error('密码长度至少六位！'))
           } else {
             callback()
           }
@@ -154,17 +146,19 @@ export default class Login extends Vue {
 
   // 登录
   private handleLogin() {
-    this.$refs.loginForm.validate((valid: any) => {
+    this.$refs.loginForm.validate((valid: boolean) => {
       if (valid) {
         this.loading = true
-        this.LoginByUsername(this.loginForm)
-          .then((res: any) => {
+        console.log(this.loginForm)
+
+        this.login(this.loginForm)
+          .then(() => {
             this.loading = false
             this.$router.push({ path: '/' })
           })
           .catch((err: any) => {
-            console.log(err)
             this.loading = false
+            console.log(err)
           })
       } else {
         console.log('error submit!!')

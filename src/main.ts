@@ -14,7 +14,7 @@ import './registerServiceWorker'
 
 import './icons' // icon
 import './permission' // permission control
-import './mock' // simulation data
+// import './mock' // simulation data
 
 Vue.use(ElementUI)
 

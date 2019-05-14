@@ -27,7 +27,7 @@ router.beforeEach((to, from, next) => {
     } else {
       if (store.getters['user/roles'].length === 0) {
         store
-          .dispatch('user/GetUserInfo')
+          .dispatch('user/getUserInfo')
           .then((res: any) => {
             const roles = res.roles
             store.dispatch('permission/GenerateRoutes', { roles }).then(() => {
