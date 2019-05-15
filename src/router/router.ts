@@ -8,6 +8,7 @@ import Layout from '@/views/layout/Layout.vue'
 
 // Async Router Modules
 import chartsRouter from './modules/charts'
+import tablesRouter from './modules/tables'
 
 // Constant Router
 export const constantRouterMap = [
@@ -43,7 +44,8 @@ export const asyncRouterMap = [
       }
     ]
   },
-  chartsRouter
+  chartsRouter,
+  tablesRouter
 ]
 
 export default new Router({
