@@ -1,10 +1,15 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
-import Layout from '@/views/layout/Layout.vue'
-
 Vue.use(Router)
 
+// Layout
+import Layout from '@/views/layout/Layout.vue'
+
+// Async Router Modules
+import chartsRouter from './modules/charts'
+
+// Constant Router
 export const constantRouterMap = [
   {
     path: '',
@@ -21,16 +26,13 @@ export const constantRouterMap = [
   },
   { path: '/login', component: () => import('@/views/login/index.vue') },
   { path: '/register', component: () => import('@/views/register/index.vue') },
-  {
-    path: '/401',
-    component: () => import('@/views/errorPage/401.vue'),
-    hidden: true
-  }
+  { path: '/401', component: () => import('@/views/errorPage/401.vue'), hidden: true }
 ]
 
+// Async Router
 export const asyncRouterMap = [
   {
-    path: '/icon',
+    path: '/icons',
     component: Layout,
     children: [
       {
@@ -41,31 +43,11 @@ export const asyncRouterMap = [
       }
     ]
   },
-  {
-    path: '/charts',
-    component: Layout,
-    redirect: 'noredirect',
-    name: 'Charts',
-    meta: { title: 'charts', icon: 'chart' },
-    children: [
-      {
-        path: 'keyboard',
-        component: () => import('@/views/charts/keyboard.vue'),
-        name: 'KeyboardChart',
-        meta: { title: 'keyboardChart', noCache: true }
-      },
-      {
-        path: 'line',
-        component: () => import('@/views/charts/line.vue'),
-        name: 'LineChart',
-        meta: { title: 'lineChart', noCache: true }
-      }
-    ]
-  }
+  chartsRouter
 ]
 
 export default new Router({
-  // mode: 'history',
+  mode: 'history',
   base: process.env.BASE_URL,
   routes: constantRouterMap
 })
