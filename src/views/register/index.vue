@@ -232,10 +232,19 @@ export default class Register extends Vue {
           .then(() => {
             this.loading = false
             this.$router.push({ path: '/login' })
+            this.$notify({
+              title: '成功',
+              message: '注册成功',
+              type: 'success'
+            })
           })
-          .catch((err: any) => {
+          .catch((error: any) => {
             this.loading = false
-            console.log(err)
+            this.$notify.error({
+              title: '错误',
+              message: error,
+              type: 'error'
+            })
           })
       } else {
         console.log('error submit!!')

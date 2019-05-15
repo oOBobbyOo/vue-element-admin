@@ -146,20 +146,26 @@ export default class Login extends Vue {
 
   // 登录
   private handleLogin() {
-    this.$refs.loginForm.validate((valid: boolean) => {
+    this.$refs.loginForm.validate(async (valid: boolean) => {
       if (valid) {
         this.loading = true
-        console.log(this.loginForm)
-
-        this.login(this.loginForm)
-          .then(() => {
-            this.loading = false
-            this.$router.push({ path: '/' })
+        try {
+          await this.login(this.loginForm)
+          this.$router.push({ path: '/' })
+          this.loading = false
+          this.$notify({
+            title: '成功',
+            message: '登录成功',
+            type: 'success'
           })
-          .catch((err: any) => {
-            this.loading = false
-            console.log(err)
+        } catch (error) {
+          this.loading = false
+          this.$notify.error({
+            title: '错误',
+            message: error,
+            type: 'error'
           })
+        }
       } else {
         console.log('error submit!!')
         return false
