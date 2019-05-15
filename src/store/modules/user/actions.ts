@@ -2,7 +2,7 @@ import { ActionTree } from 'vuex'
 import { UserState } from './types'
 import { RootState } from '../types'
 
-import { login, register, getUserInfo, logOut } from '@/api/user'
+import { login, register, getUserInfo, forgetPwd, logOut } from '@/api/user'
 import { setToken, removeToken } from '@/utils/auth'
 
 export const actions: ActionTree<UserState, RootState> = {
@@ -13,7 +13,7 @@ export const actions: ActionTree<UserState, RootState> = {
       commit('SET_TOKEN', data.token)
       setToken(data.token)
     } catch (error) {
-      return error
+      return Promise.reject(error)
     }
   },
 
@@ -23,7 +23,7 @@ export const actions: ActionTree<UserState, RootState> = {
       const { data } = await register(user)
       commit('SET_TOKEN', data.token)
     } catch (error) {
-      return error
+      return Promise.reject(error)
     }
   },
 
@@ -45,7 +45,18 @@ export const actions: ActionTree<UserState, RootState> = {
       commit('SET_INTRODUCTION', data.introduction)
       return data
     } catch (error) {
-      return error
+      return Promise.reject(error)
+    }
+  },
+
+  // 忘记密码
+  async forgetPwd({ commit }, user) {
+    try {
+      await forgetPwd(user)
+      commit('SET_TOKEN', '')
+      commit('SET_ROLES', [])
+    } catch (error) {
+      return Promise.reject(error)
     }
   },
 
@@ -57,7 +68,7 @@ export const actions: ActionTree<UserState, RootState> = {
       commit('SET_ROLES', [])
       removeToken()
     } catch (error) {
-      return error
+      return Promise.reject(error)
     }
   },
 

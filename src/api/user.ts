@@ -34,3 +34,12 @@ export function register(user: any) {
     data: { user }
   })
 }
+
+// 忘记密码
+export function forgetPwd(user: any) {
+  return request({
+    url: '/user/forgetPwd',
+    method: 'post',
+    data: { user }
+  })
+}
