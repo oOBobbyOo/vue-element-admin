@@ -15,7 +15,7 @@ const tablesRouter = {
     },
     {
       path: 'dynamic',
-      component: () => import('@/views/charts/line.vue'),
+      component: () => import('@/views/tables/dynamic.vue'),
       name: 'DynamicTable',
       meta: { title: 'Dynamic Table', noCache: true }
     }

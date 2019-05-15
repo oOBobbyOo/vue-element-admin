@@ -142,3 +142,14 @@ $light_gray: #eee;
     padding: 0 15px;
   }
 }
+
+// table
+.table-container {
+  padding: 20px;
+  .el-table tr.warning-row {
+    background-color: #fdf5e6;
+  }
+  .el-table tr.success-row {
+    background-color: #f0f9eb;
+  }
+}
