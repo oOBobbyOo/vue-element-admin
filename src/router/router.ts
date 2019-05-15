@@ -22,7 +22,7 @@ export const constantRouterMap = [
         path: 'dashboard',
         component: () => import('@/views/dashboard/index.vue'),
         name: 'Dashboard',
-        meta: { title: 'dashboard', icon: 'dashboard', noCache: true }
+        meta: { title: 'Dashboard', icon: 'dashboard', noCache: true }
       }
     ]
   },
@@ -42,7 +42,7 @@ export const asyncRouterMap = [
         path: 'index',
         component: () => import('@/views/icons/index.vue'),
         name: 'Icons',
-        meta: { title: 'icons', icon: 'icon', noCache: true }
+        meta: { title: 'Icons', icon: 'icon', noCache: true }
       }
     ]
   },

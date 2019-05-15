@@ -5,19 +5,19 @@ const chartsRouter = {
   component: Layout,
   redirect: 'noredirect',
   name: 'Charts',
-  meta: { title: 'charts', icon: 'chart' },
+  meta: { title: 'Charts', icon: 'chart' },
   children: [
     {
       path: 'keyboard',
       component: () => import('@/views/charts/keyboard.vue'),
       name: 'KeyboardChart',
-      meta: { title: 'keyboardChart', noCache: true }
+      meta: { title: 'keyboard Chart', noCache: true }
     },
     {
       path: 'line',
       component: () => import('@/views/charts/line.vue'),
       name: 'LineChart',
-      meta: { title: 'lineChart', noCache: true }
+      meta: { title: 'Line Chart', noCache: true }
     }
   ]
 }

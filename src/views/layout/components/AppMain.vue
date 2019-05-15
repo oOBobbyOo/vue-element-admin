@@ -15,7 +15,6 @@ import { Component, Vue } from 'vue-property-decorator'
 export default class AppMain extends Vue {}
 </script>
 
-
 <style lang="scss" scoped>
 .app-main {
   /*84 = navbar + tags-view = 50 +34 */
