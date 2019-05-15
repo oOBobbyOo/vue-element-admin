@@ -63,7 +63,7 @@ export const actions: ActionTree<UserState, RootState> = {
   // 登出
   async logOut({ commit }) {
     try {
-      const { data } = await logOut()
+      await logOut()
       commit('SET_TOKEN', '')
       commit('SET_ROLES', [])
       removeToken()
@@ -72,10 +72,11 @@ export const actions: ActionTree<UserState, RootState> = {
     }
   },
 
-  // 前端 登出
-  FedLogOut({ commit }) {
+  // 前端登出
+  fedLogOut({ commit }) {
     return new Promise(resolve => {
       commit('SET_TOKEN', '')
+      commit('SET_ROLES', [])
       removeToken()
       resolve()
     })

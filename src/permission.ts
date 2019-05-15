@@ -1,11 +1,12 @@
 import router from './router/router'
 import store from './store/store'
-
 import { Message } from 'element-ui'
-import NProgress from 'nprogress'
-import 'nprogress/nprogress.css'
+import NProgress from 'nprogress' // progress bar
+import 'nprogress/nprogress.css' // progress bar style
+import { getToken } from '@/utils/auth' // get token from cookie
+import getPageTitle from '@/utils/getPageTitle'
 
-import { getToken } from '@/utils/auth'
+NProgress.configure({ showSpinner: false }) // NProgress Configuration
 
 // permission judge function
 function hasPermission(roles: any, permissionRoles: any) {
@@ -17,38 +18,44 @@ function hasPermission(roles: any, permissionRoles: any) {
 const whiteList = ['/login', '/register', '/forgetPwd', '/auth-redirect'] // no redirect whitelist
 
 router.beforeEach((to, from, next) => {
+  // start progress bar
   NProgress.start()
 
-  if (getToken()) {
+  // set page title
+  document.title = getPageTitle(to.meta.title)
+
+  // determine whether the user has logged in
+  const hasToken = getToken()
+
+  if (hasToken) {
     /* has token*/
     if (to.path === '/login') {
       next({ path: '/' })
       NProgress.done()
     } else {
-      if (store.getters['user/roles'].length === 0) {
+      const hasRoles = store.getters.roles && store.getters.roles.length === 0
+      if (hasRoles) {
         store
           .dispatch('user/getUserInfo')
           .then((res: any) => {
             const roles = res.roles
-            store.dispatch('permission/GenerateRoutes', { roles }).then(() => {
+            store.dispatch('permission/generateRoutes', roles).then(() => {
               router.addRoutes(store.getters['permission/addRouters'])
               next({ ...to, replace: true })
             })
           })
           .catch((err: any) => {
-            store.dispatch('user/FedLogOut').then(() => {
+            store.dispatch('user/fedLogOut').then(() => {
               Message.error(err || 'Verification failed, please login again')
               next({ path: '/' })
             })
           })
       } else {
-        // 没有动态改变权限的需求可直接next() 删除下方权限判断 ↓
         if (hasPermission(store.getters['user/roles'], to.meta.roles)) {
           next()
         } else {
           next({ path: '/401', replace: true })
         }
-        // 可删 ↑
       }
     }
   } else {
@@ -63,5 +70,6 @@ router.beforeEach((to, from, next) => {
 })
 
 router.afterEach(() => {
+  // finish progress bar
   NProgress.done()
 })
