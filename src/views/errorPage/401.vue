@@ -12,16 +12,18 @@
           <li class="link-type">
             <router-link to="/dashboard">回首页</router-link>
           </li>
-          <li class="link-type"><a href="https://oobobbyoo.github.io/">随便看看</a></li>
-          <li><a href="#" @click.prevent="dialogVisible=true">点我看图</a></li>
+          <li class="link-type">
+            <a href="https://oobobbyoo.github.io/" target="_blank">随便看看</a>
+          </li>
+          <li><a href="#" @click.prevent="dialogVisible = true">点我看图</a></li>
         </ul>
       </el-col>
       <el-col :span="12">
-        <img :src="errGif" width="313" height="428" alt="Girl has dropped her ice cream.">
+        <img :src="errGif" width="313" height="428" alt="Girl has dropped her ice cream." />
       </el-col>
     </el-row>
     <el-dialog :visible.sync="dialogVisible" title="随便看">
-      <img :src="ewizardClap" class="pan-img">
+      <img :src="ewizardClap" class="pan-img" />
     </el-dialog>
   </div>
 </template>
@@ -36,8 +38,7 @@ import { Component, Vue } from 'vue-property-decorator'
 })
 export default class Page401 extends Vue {
   private errGif: string = errGif + '?' + +new Date()
-  private ewizardClap: string =
-    'https://wpimg.wallstcn.com/007ef517-bafd-4066-aae4-6883632d9646'
+  private ewizardClap: string = 'https://wpimg.wallstcn.com/007ef517-bafd-4066-aae4-6883632d9646'
   private dialogVisible: boolean = false
 
   private back() {
@@ -49,7 +50,6 @@ export default class Page401 extends Vue {
   }
 }
 </script>
-
 
 <style lang="scss" scoped>
 .errPage-container {

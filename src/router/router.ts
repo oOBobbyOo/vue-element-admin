@@ -9,6 +9,7 @@ import Layout from '@/views/layout/Layout.vue'
 // Async Router Modules
 import chartsRouter from './modules/charts'
 import tablesRouter from './modules/tables'
+import errorsRouter from './modules/errors'
 
 // Constant Router
 export const constantRouterMap = [
@@ -27,7 +28,8 @@ export const constantRouterMap = [
   },
   { path: '/login', component: () => import('@/views/login/index.vue') },
   { path: '/register', component: () => import('@/views/register/index.vue') },
-  { path: '/401', component: () => import('@/views/errorPage/401.vue'), hidden: true }
+  { path: '/401', component: () => import('@/views/errorPage/401.vue'), hidden: true },
+  { path: '/404', component: () => import('@/views/errorPage/404.vue'), hidden: true }
 ]
 
 // Async Router
@@ -45,7 +47,8 @@ export const asyncRouterMap = [
     ]
   },
   chartsRouter,
-  tablesRouter
+  tablesRouter,
+  errorsRouter
 ]
 
 export default new Router({
